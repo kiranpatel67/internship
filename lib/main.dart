@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:internship/presentation/login_screen/binding.dart';
 import 'package:internship/presentation/login_screen/view.dart';
+import 'package:internship/utils/routes/PageRoutes.dart';
 
 
 void main() {
@@ -24,6 +25,7 @@ class _MyAppState extends State<MyApp> {
       initialBinding: LoginScreenBinding(),
       title: 'Internship',
       home: LoginScreenView(),
+      getPages: Pages,
     );
   }
 }
