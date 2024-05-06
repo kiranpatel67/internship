@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "669262715764",
+    "project_id": "nearbyturf-main",
+    "storage_bucket": "nearbyturf-main.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:669262715764:android:f739d653112333b43a6a21",
+        "android_client_info": {
+          "package_name": "io.nearbyturf.owner"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsnrFyFL_fgZMYpMnaOsU45ZSoc5CWtTU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:669262715764:android:5e44ceec83cbd73b3a6a21",
+        "android_client_info": {
+          "package_name": "org.nearby.turf"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsnrFyFL_fgZMYpMnaOsU45ZSoc5CWtTU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import '../signup_screen/view.dart';
 import 'controller.dart';
 
 class LoginScreenView extends GetView<LoginScreenController> {
-  LoginScreenView({Key? key}) : super(key: key);
+  const LoginScreenView({Key? key}) : super(key: key);
 
 
   @override
@@ -24,7 +23,9 @@ class LoginScreenView extends GetView<LoginScreenController> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Text('Don`t have an account?'),
-        TextButton(onPressed: () {}, child: const Text('Sign up', style: TextStyle(
+        TextButton(onPressed: () {
+          Get.toNamed('/Signup_Screen');
+        }, child: const Text('Sign up', style: TextStyle(
           color: Color(0xFF099F0B)
         ),), style: ButtonStyle(
           overlayColor: MaterialStateProperty.resolveWith((states) => Color(0xFFFFFFFF)),
@@ -111,7 +112,13 @@ class LoginScreenView extends GetView<LoginScreenController> {
             Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                    onPressed: () {}, child: const Text('Forgot Password?'))),
+                    onPressed: () {
+                      Get.toNamed('/Forgotpassword_Screen');
+                    }, child: const Text('Forgot Password?'),
+                    style: ButtonStyle(
+                      overlayColor: MaterialStateProperty.resolveWith((states) => Color(0xFFFFFFFF)),
+                )
+            ),),
             Container(
               decoration: BoxDecoration(
                 // color: 
