@@ -1,10 +1,30 @@
 {
   "project_info": {
     "project_number": "669262715764",
+    "firebase_url": "https://nearbyturf-main-default-rtdb.firebaseio.com",
     "project_id": "nearbyturf-main",
     "storage_bucket": "nearbyturf-main.appspot.com"
   },
   "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:669262715764:android:4bf0f372a3fd54413a6a21",
+        "android_client_info": {
+          "package_name": "com.internship.internship"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsnrFyFL_fgZMYpMnaOsU45ZSoc5CWtTU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
     {
       "client_info": {
         "mobilesdk_app_id": "1:669262715764:android:f739d653112333b43a6a21",

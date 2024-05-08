@@ -27,7 +27,7 @@ class ForgotpasswordView extends GetView<ForgotpasswordScreenController> {
       body: Container(
         padding: const EdgeInsets.all(32),
         child: Form(
-          autovalidateMode: AutovalidateMode.always,
+          key: controller.formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -55,6 +55,12 @@ class ForgotpasswordView extends GetView<ForgotpasswordScreenController> {
                             ),
                           ),
                           controller: controller.emailController,
+                          validator: (value){
+                            if(GetUtils.isEmail(value!)){
+                              return null;
+                            }
+                            return 'Enter a vaild Email Address';
+                          },
                         ),
                       ),
                     ],
@@ -72,8 +78,17 @@ class ForgotpasswordView extends GetView<ForgotpasswordScreenController> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12))),
                     onPressed: () {
-                      Get.toNamed('/Emailverification_Screen?email=${controller.emailController.text}');
-                    },
+                      if(controller.formKey.currentState!.validate()){
+                        print('all correct');
+                        Get.toNamed('/Emailverification_Screen?email=${controller.emailController.text}');
+
+                      }
+                      else{
+                        print('error');
+
+                      }
+
+                      },
                     child: const Text(
                       'Continue',
                       style: TextStyle(color: Color(0xFFFFFFFF)),

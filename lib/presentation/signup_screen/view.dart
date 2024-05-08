@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,26 +13,30 @@ class SignupScreenView extends GetView<SignupScreenController> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          bottomNavigationBar: BottomButton(),
+      bottomNavigationBar: BottomButton(),
       body: MainContainer(),
     ));
   }
 
   Row BottomButton() {
     return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Already have an account?'),
-            TextButton(onPressed: () {
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text('Already have an account?'),
+        TextButton(
+            onPressed: () {
               Get.toNamed('/Login_Screen');
-            }, child: const Text('Login', style: TextStyle(
-                color: Color(0xFF099F0B)
-            ),), style: ButtonStyle(
-              overlayColor: MaterialStateProperty.resolveWith((states) => Color(0xFFFFFFFF)),
-
+            },
+            child: const Text(
+              'Login',
+              style: TextStyle(color: Color(0xFF099F0B)),
+            ),
+            style: ButtonStyle(
+              overlayColor: MaterialStateProperty.resolveWith(
+                  (states) => Color(0xFFFFFFFF)),
             ))
-          ],
-        );
+      ],
+    );
   }
 
   Container MainContainer() {
@@ -39,7 +44,7 @@ class SignupScreenView extends GetView<SignupScreenController> {
         child: Container(
       padding: const EdgeInsets.all(32),
       child: Form(
-        autovalidateMode: AutovalidateMode.always,
+        key: controller.formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -67,8 +72,7 @@ class SignupScreenView extends GetView<SignupScreenController> {
                           hintText: 'First Name',
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(16)),
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
                           ),
                         ),
                         controller: controller.firstnameController,
@@ -83,8 +87,7 @@ class SignupScreenView extends GetView<SignupScreenController> {
                           hintText: 'Last Name',
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
-                            borderRadius:
-                            BorderRadius.all(Radius.circular(16)),
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
                           ),
                         ),
                         controller: controller.lastnameController,
@@ -99,17 +102,21 @@ class SignupScreenView extends GetView<SignupScreenController> {
                           hintText: 'Email Address',
                           border: OutlineInputBorder(
                             borderSide: BorderSide.none,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(16)),
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
                           ),
                         ),
                         controller: controller.emailController,
+                        validator: (value) {
+                          if (GetUtils.isEmail(value!)) {
+                            return null;
+                          }
+                          return 'Enter a vaild Email Address';
+                        },
                       ),
                     ),
                     Obx(() {
                       return Container(
                         margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
-
                         child: TextFormField(
                           obscureText: !controller.passwordVisible.value,
                           controller: controller.passwordController,
@@ -137,7 +144,6 @@ class SignupScreenView extends GetView<SignupScreenController> {
                     }),
                   ],
                 )),
-
             Container(
               decoration: BoxDecoration(
                   // color:
@@ -150,9 +156,22 @@ class SignupScreenView extends GetView<SignupScreenController> {
                       minimumSize: Size(800, 50),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12))),
-                  onPressed: () {},
+                  onPressed: () async {
+                    if (controller.formKey.currentState!.validate()) {
+                      print('all correct');
+                      final userCredential = await FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                              email: controller.emailController.text,
+                              password: controller.passwordController.text);
+                      final user = userCredential.user;
+                      print(user?.uid);
+                      Get.toNamed('/Home_Screen');
+                    } else {
+                      print('error');
+                    }
+                  },
                   child: const Text(
-                    'Login',
+                    'Sign up',
                     style: TextStyle(color: Color(0xFFFFFFFF)),
                   )),
             ),

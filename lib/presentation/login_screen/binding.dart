@@ -8,6 +8,7 @@ class LoginScreenBinding extends Bindings{
     Get.lazyPut(() => LoginScreenController());
 
 
+
   }
 
 

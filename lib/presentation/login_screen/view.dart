@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../signup_screen/view.dart';
 import 'controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:internship/utils/widget/TextField.dart';
 
 class LoginScreenView extends GetView<LoginScreenController> {
-  const LoginScreenView({Key? key}) : super(key: key);
-
+   LoginScreenView({Key? key}) : super(key: key);
+  final controller= Get.put(LoginScreenController());
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,6 @@ class LoginScreenView extends GetView<LoginScreenController> {
     return Container(
       padding: const EdgeInsets.all(32),
       child: Form(
-        autovalidateMode: AutovalidateMode.always,
         key: controller.formKey,
 
         child: Column(
@@ -66,8 +67,12 @@ class LoginScreenView extends GetView<LoginScreenController> {
                     Container(
                       margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
                       child: TextFormField(
-
-
+                        validator: (value){
+                          if(GetUtils.isEmail(value!)){
+                            return null;
+                        }
+                          return 'Enter a vaild Email Address';
+                          },
                         decoration: const InputDecoration(
                             filled: true,
                             fillColor: Color(0xECEFEFEF),
@@ -87,14 +92,15 @@ class LoginScreenView extends GetView<LoginScreenController> {
                       return TextFormField(
                         obscureText: !controller.passwordVisible.value,
                         controller: controller.passwordController,
+                        validator: (value){
+                          if(value != ''){
+                            return null;
+                          }
+                          return 'Enter the password';
+                        },
                         decoration: InputDecoration(
-                          filled: true,
-                          fillColor: const Color(0xECEFEFEF),
                           hintText: 'Password',
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.all(Radius.circular(16)),
-                            ),
+
                           suffixIcon: IconButton(
                             icon: controller.passwordVisible.value
                                 ? const Icon(Icons.visibility_off)
@@ -132,12 +138,22 @@ class LoginScreenView extends GetView<LoginScreenController> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))
                 ),
                   onPressed: () {
+                  if(controller.formKey.currentState!.validate()){
+                    print('all correct');
+                    Get.toNamed('/Home_Screen');
+                  }
+                  else{
+                    print('error');
+
+                  }
+
                   },
                   child: const Text('Login', style: TextStyle(color: Color(0xFFFFFFFF)),
                 )
 
               ),
             ),
+
           ],
         ),
       ),
