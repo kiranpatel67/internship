@@ -5,7 +5,8 @@ import 'package:internship/presentation/forgotpassword_screen/binding.dart';
 import 'package:internship/presentation/home_page/homeBinding.dart';
 import 'package:internship/presentation/home_page/view.dart';
 import 'package:internship/presentation/signup_screen/binding.dart';
-
+import 'package:internship/presentation/turfsignup_screen/turfSignupBinding.dart';
+import 'package:internship/presentation/turfsignup_screen/view.dart';
 import '../../presentation/forgotpassword_screen/view.dart';
 import '../../presentation/login_screen/binding.dart';
 import '../../presentation/login_screen/view.dart';
@@ -31,5 +32,9 @@ List<GetPage<dynamic>>? Pages = [
   GetPage(
       name: '/Home_Screen',
       page: () => HomePageView(),
-      binding: HomeBindingScreen())
+      binding: HomeBindingScreen()),
+  GetPage(
+      name: '/turfSignup_Screen',
+      page: () => TurfsignupView(),
+      binding: TurfsignupBinding())
 ];

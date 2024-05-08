@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class TextField extends TextFormField{
 
   TextFormField get TextFieldMain =>
-  decoration get  => TextFormField(
+   TextFormField(
 
-    decoration: InputDecoration(
+    decoration: const InputDecoration(
       filled: true,
       fillColor: Colors.green,
       border: OutlineInputBorder(
