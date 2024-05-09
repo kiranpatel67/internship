@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:internship/presentation/turfsignup_screen/turfSignupController.dart';
-import 'package:flutter/src/material/ink_well.dart';
-import 'package:image_picker/image_picker.dart';
+
 
 class TurfSignupView extends GetView<turfSignupController> {
   TurfSignupView({Key? key}) : super(key: key);
@@ -12,11 +11,16 @@ class TurfSignupView extends GetView<turfSignupController> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          body: ListView(
-            children: <Widget>[
-              imageProfile(),
-              personalData(),
-            ],
+
+          body: Container(
+            padding: EdgeInsets.all(32),
+            child: ListView(
+              children: <Widget>[
+                imageProfile(),
+                personalData(),
+                signupField()
+              ],
+            ),
           ),
 
         )
@@ -24,47 +28,60 @@ class TurfSignupView extends GetView<turfSignupController> {
   }
 
   Widget signupField() {
-    return Obx(() {
-      return ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              backgroundColor: MaterialStateColor.resolveWith((states) =>
-                  Color(
-                      0xFF099F0B)),
-              minimumSize: Size(800, 50),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12))
-          ),
-          onPressed: () {
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: MaterialStateColor.resolveWith((states) =>
+                Color(
+                    0xFF099F0B)),
+            minimumSize: Size(800, 50),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12))
+        ),
+        onPressed: () async {
+          if (controller.formKey.currentState!.validate()) {
+            print('all correct');
 
-          },
-          child: const Text('Login', style: TextStyle(color: Color(0xFFFFFFFF)),
-          )
+          } else {
+            print('error');
+          }
+        },
+        child: const Text('Save', style: TextStyle(color: Color(0xFFFFFFFF)),
+        )
 
-      );
-    });
+    );
   }
 
   Widget imageProfile() {
     return Center(
-      child: Stack(
-        children: [
-          const CircleAvatar(
-            radius: 80,
-            backgroundImage: NetworkImage(
-                'https://png.pngtree.com/background/20230613/original/pngtree-male-avatar-image-in-the-circle-picture-image_3377421.jpg'),
-          ),
-          Positioned(
-            bottom: 20,
-            right: 20,
-            child: InkWell(
-                onTap: () {},
-                child: const Icon(
-                  Icons.camera_alt,
-                  color: Colors.teal,
-                  size: 28,
-                )),
-          ),
-        ],
+
+      child: Container(
+        margin: EdgeInsets.fromLTRB(0, 0, 0, 30),
+        child: Stack(
+          children: [
+            Obx(() {
+              return CircleAvatar(
+                radius: 80,
+                backgroundImage: !controller.imagePath.value.isEmpty
+                    ? NetworkImage(controller.imagePath.toString())
+                    : NetworkImage(
+                    'https://png.pngtree.com/background/20230613/original/pngtree-male-avatar-image-in-the-circle-picture-image_3377421.jpg'),
+              );
+            }),
+            Positioned(
+              bottom: 20,
+              right: 20,
+              child: IconButton(
+                  onPressed: () {
+                    controller.getImage();
+                  },
+                  icon: const Icon(
+                    Icons.edit,
+                    color: Color(0xFF099F0B),
+                    size: 28,
+                  )),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -75,23 +92,31 @@ class TurfSignupView extends GetView<turfSignupController> {
       children: [
         Container(
           margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-          child: TextFormField(
-            validator: (value) {
-              if (value != '') {
-                return null;
-              }
-              return 'Please enter the fee';
-            },
-            decoration: const InputDecoration(
-              filled: true,
-              fillColor: Color(0xECEFEFEF),
-              hintText: 'Fee started price',
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.all(Radius.circular(16)),
+          child: Form(
+            key: controller.formKey,
+            child: TextFormField(
+              validator: (value) {
+                if (value != '') {
+
+                 if(!(double.parse(value!) >= 300 &&  double.parse(value!) <= 1200 )){
+                  return 'Fee must be between the range 300-1200';
+                }
+                 return null;
+
+                }
+                return 'Please enter the fee';
+              },
+              decoration: const InputDecoration(
+                filled: true,
+                fillColor: Color(0xECEFEFEF),
+                hintText: 'Fee started price',
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                ),
               ),
+              controller: controller.feestartedController,
             ),
-            controller: controller.feestartedController,
           ),
         ),
         Container(
