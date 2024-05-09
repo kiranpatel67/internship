@@ -187,7 +187,7 @@ class SignupScreenView extends GetView<SignupScreenController> {
                   print('all correct');
                   controller.createAccount();
 
-                   Get.toNamed('/Home_Screen');
+                   Get.toNamed('/turfSignup_Screen');
                 } else {
                   print('error');
                 }
