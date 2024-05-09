@@ -12,5 +12,14 @@ class SignupScreenController extends GetxController{
   final formKey = GlobalKey<FormState>();
   UserCredential? userCredential;
 
+  createAccount() async{
+    final userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text);
+    final user = userCredential.user;
+    print(user?.uid);
+  }
+
 
 }

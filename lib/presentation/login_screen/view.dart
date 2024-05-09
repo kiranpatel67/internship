@@ -100,7 +100,14 @@ class LoginScreenView extends GetView<LoginScreenController> {
                         },
                         decoration: InputDecoration(
                           hintText: 'Password',
+                      filled: true,
+                      fillColor: Color(0xECEFEFEF),
+                      border: OutlineInputBorder(
 
+                      borderSide: BorderSide.none,
+                      borderRadius:
+                      BorderRadius.all(Radius.circular(16)),
+                      ),
                           suffixIcon: IconButton(
                             icon: controller.passwordVisible.value
                                 ? const Icon(Icons.visibility_off)
