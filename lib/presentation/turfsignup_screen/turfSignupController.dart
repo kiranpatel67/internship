@@ -13,15 +13,27 @@ class turfSignupController extends GetxController{
 
   RxString imagePath = ''.obs;
 
-  Future getImage() async{
-  final ImagePicker _picker = await ImagePicker();
-  final image = await _picker.pickImage(source: ImageSource.gallery);
-  if (image != null){
-    imagePath.value = image.path.toString();
+  Future getImageFromGallery() async{
+    final ImagePicker _picker = await ImagePicker();
+    final image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null){
+      imagePath.value = image.path.toString();
+    }
+    else{
+      print('no image');
+    }
+
+
   }
-  else{
-    print('no image');
-  }
+  Future getImageFromCamera() async{
+    final ImagePicker _picker = await ImagePicker();
+    final image = await _picker.pickImage(source: ImageSource.camera);
+    if (image != null){
+      imagePath.value = image.path.toString();
+    }
+    else{
+      print('no image');
+    }
 
 
   }
