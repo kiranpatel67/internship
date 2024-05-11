@@ -34,18 +34,19 @@ class turfSignupController extends GetxController{
     else{
       print('no image');
     }
-
-
   }
 
-  // Future<String?> Getimage() async{
-  //   ImagePicker picker =  ImagePicker();
-  //   XFile? image = await picker.pickImage(source: ImageSource.gallery);
-  //
-  //   if(image!= null){
-  //    imagePath.value = image.path.toString();
-  //   }
-  // }
+
+  final List<String> chipData = ["Chip 1", "Chip 2", "Chip 3", "Chip 4"];
+  RxList<String> selectedChips = <String>[].obs;
+
+  void toggleChip(String chip) {
+    if (selectedChips.contains(chip)) {
+      selectedChips.remove(chip);
+    } else {
+      selectedChips.add(chip);
+    }
+  }
 
 
 }
