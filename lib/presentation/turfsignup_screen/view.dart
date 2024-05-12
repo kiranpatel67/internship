@@ -21,6 +21,7 @@ class TurfSignupView extends GetView<turfSignupController> {
                   height: 12,
                 ),
                 signupField(),
+
               ],
             ),
           ),
@@ -28,63 +29,87 @@ class TurfSignupView extends GetView<turfSignupController> {
   }
 
   Widget cetegoryField() {
-    return ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            backgroundColor:
-            MaterialStateColor.resolveWith((states) => Color(0xECEFEFEF)),
-            minimumSize: Size(800, 50),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12))),
-        onPressed: () async {
-          Get.bottomSheet(Obx(() {
-            return Container(
-              child: Wrap(
-                spacing: 8.0,
-                runSpacing: 8.0,
-                children: controller.chipData.map((chip) {
-                  return GestureDetector(
-                    onTap: () {
-                      controller.toggleChip(chip);
-                    },
-                    child: Chip(
-                      label: Text(chip),
-                      backgroundColor: controller.selectedChips.contains(chip)
-                          ? Colors.blue
-                          : Colors.grey,
-                    ),
-                  );
-                }).toList(),
-              ),
-            );
-          }));
-        },
-        child: Align(
-            alignment: Alignment.centerLeft,
-            child: Column(children: [
+    return Obx(() {
+      return Column(
+          children: [
+            Container(
 
-              if (controller.selectedChips.value.toString() == '[]') //
-                Obx(() {
-                  return Text('${controller.selectedChips.value ?? 'Add'}');
-                }) //
-              else
-                Text(
-                  ' Add Category',
-                  style: TextStyle(color: Colors.grey),
+              decoration: BoxDecoration(
+                color: Color(0xFFEEEEEE),
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+              ),
+              child: ListTile(
+                onTap: () {
+                  Get.bottomSheet(
+                      Container(
+                        height: 150,
+                        decoration: const BoxDecoration(
+                          color: Color(0xECEFEFEF),
+                          borderRadius: BorderRadius.all(Radius.circular(16)),
+                        ),
+                        child: Obx(
+                              () =>
+                              Column(
+                                children: [
+                                  CheckboxListTile(
+                                    title: Text("hi"),
+                                    value: controller.isSelectedCategory("hi"),
+                                    onChanged: (value) =>
+                                        controller.selectCategory("hi", value!),
+                                  ),
+                                  CheckboxListTile(
+                                    title: Text("hello"),
+                                    value: controller.isSelectedCategory("hello"),
+                                    onChanged: (value) =>
+                                        controller.selectCategory(
+                                            "hello", value!),
+                                  ),
+                                  CheckboxListTile(
+                                    title: Text("bonjour"),
+                                    value: controller.isSelectedCategory(
+                                        "bonjour"),
+                                    onChanged: (value) =>
+                                        controller.selectCategory(
+                                            "bonjour", value!),
+                                  ),
+                                ],
+                              ),
+                        ),
+                      ));
+                },
+                leading: Icon(Icons.library_add_check_rounded),
+                title: Text(
+                  'Select Categories',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+
                 ),
 
-            ])));
+
+              ),
+            ),
+
+            if(controller.selectedCategories.isNotEmpty)
+                    Text(
+                      "Selected categories: ${controller.selectedCategories.keys
+                          .toList().join(", ")}",
+                      style: TextStyle(fontSize: 16),
+                    ),
+          ]
+      );
+    });
   }
+
 
   Widget signupField() {
     return ElevatedButton(
         style: ElevatedButton.styleFrom(
             backgroundColor:
-            MaterialStateColor.resolveWith((states) => Color(0xFF099F0B)),
+            MaterialStateColor.resolveWith((states) => Color(0xFF048D06)),
             minimumSize: Size(800, 50),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12))),
         onPressed: () async {
-          Get.toNamed('/category_Screen');
+          // Get.toNamed('/category_Screen');
           if (controller.formKey.currentState!.validate()) {
             print('all correct');
           } else {
@@ -108,7 +133,7 @@ class TurfSignupView extends GetView<turfSignupController> {
                 radius: 80,
                 backgroundImage: !controller.imagePath.value.isEmpty
                     ? NetworkImage(controller.imagePath.toString())
-                    : NetworkImage(
+                    : const NetworkImage(
                     'https://png.pngtree.com/background/20230613/original/pngtree-male-avatar-image-in-the-circle-picture-image_3377421.jpg'),
               );
             }),
@@ -118,19 +143,14 @@ class TurfSignupView extends GetView<turfSignupController> {
               child: IconButton(
                   onPressed: () {
                     Get.bottomSheet(
-
                       backgroundColor: Color(0xFFFFFFFF),
-
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           color: Color(0xFFFFFFFF),
                           child: Wrap(
                             children: <Widget>[
-                              Container(
-                                  child: Text('Choose image from')
-
-                              ),
+                              Container(child: Text('Choose image from')),
                               Container(
                                 color: Colors.white,
                                 child: ListTile(
@@ -266,7 +286,7 @@ class TurfSignupView extends GetView<turfSignupController> {
                   borderRadius: BorderRadius.all(Radius.circular(16)),
                 ),
               ),
-              controller: controller.DescriptionController,
+              controller: controller.ZipController,
             ),
           ),
         ],

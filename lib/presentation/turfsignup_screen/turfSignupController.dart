@@ -9,6 +9,9 @@ class turfSignupController extends GetxController{
   TextEditingController feestartedController = TextEditingController();
   TextEditingController DescriptionController = TextEditingController();
   TextEditingController AddressController = TextEditingController();
+  TextEditingController ZipController = TextEditingController();
+  TextEditingController CategoryController = TextEditingController();
+  final RxMap<String, bool> selectedCategories = <String, bool>{}.obs;
   final formKey = GlobalKey<FormState>();
 
   RxString imagePath = ''.obs;
@@ -37,16 +40,17 @@ class turfSignupController extends GetxController{
   }
 
 
-  final List<String> chipData = ["Chip 1", "Chip 2", "Chip 3", "Chip 4"];
-  RxList<String> selectedChips = <String>[].obs;
 
-  void toggleChip(String chip) {
-    if (selectedChips.contains(chip)) {
-      selectedChips.remove(chip);
+  void selectCategory(String category, bool value) {
+    if (value) {
+      selectedCategories[category] = true;
     } else {
-      selectedChips.add(chip);
+      selectedCategories.remove(category);
     }
   }
 
+  bool isSelectedCategory(String category) {
+    return selectedCategories[category]?? false;
+  }
 
 }
