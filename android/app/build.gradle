@@ -49,6 +49,8 @@ android {
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
+        multiDexEnabled true
+
         versionName flutterVersionName
     }
 
@@ -67,4 +69,7 @@ flutter {
 
 dependencies {
     implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.android.support:multidex:2.0.1'
+
 }
+

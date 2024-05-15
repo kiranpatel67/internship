@@ -10,6 +10,8 @@ class LoginScreenView extends GetView<LoginScreenController> {
    LoginScreenView({Key? key}) : super(key: key);
   final controller= Get.put(LoginScreenController());
 
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
